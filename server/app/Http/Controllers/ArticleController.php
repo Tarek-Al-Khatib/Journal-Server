@@ -27,11 +27,18 @@ class ArticleController extends Controller
     }
 
 
-    public function PostArticle(Request $request)
+    public function postArticle(Request $request, $id)
     {
+
+        $user = User::find($id);
+
+        if(!$user){
+            return response()->json(["message" => "Not found"], 404);
+        }
+        
         $article = Article::create([
             'journal_reference' => $request->journal_reference,
-            'posted_by' => $request->posted_by,
+            'posted_by' => $id,
             'text' => $request->text,
             'restrictedAge' => $request->restrictedAge,
         ]);
