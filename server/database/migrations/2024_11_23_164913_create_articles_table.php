@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->integer("journal_refernce");
-            $table->integer("posted_by");
+            $table->unsignedBigInteger("journal_reference");
+            $table->unsignedBigInteger("posted_by");
             $table->string("text");
 
             $table->primary(["journal_reference", "posted_by"]);
 
-            $table->foreign('journal_refernce')->references('id')->on('journals')->onDelete('cascade');
+            $table->foreign('journal_reference')->references('id')->on('journals')->onDelete('cascade');
             $table->foreign('posted_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

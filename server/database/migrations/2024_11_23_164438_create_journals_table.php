@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("text");
+            $table->unsignedBigInteger("posted_by");
             $table->foreign("posted_by")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
