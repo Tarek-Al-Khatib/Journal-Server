@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->integer("journal_refernce");
             $table->integer("posted_by");
+            $table->string("text");
 
             $table->primary(["journal_reference", "posted_by"]);
 
