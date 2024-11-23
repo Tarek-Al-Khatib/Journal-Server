@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
-    public function getArticles($id){
+    public function getJournals($id){
         $user = User::find($id);
         if(!$user){
             return response()->json(["message" => "Not found"], 404);
