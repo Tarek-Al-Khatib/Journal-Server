@@ -27,7 +27,18 @@ class ArticleController extends Controller
     }
 
 
-    public function postArticle(Request $request){
-        
+    public function PostArticle(Request $request)
+    {
+        $article = Article::create([
+            'journal_reference' => $request->journal_reference,
+            'posted_by' => $request->posted_by,
+            'text' => $request->text,
+            'restrictedAge' => $request->restrictedAge,
+        ]);
+
+        return response()->json([
+            'message' => 'Article created successfully.',
+            'article' => $article,
+        ], 200);
     }
 }
