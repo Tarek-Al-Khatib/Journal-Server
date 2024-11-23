@@ -45,4 +45,35 @@ class JournalController extends Controller
             'journal' => $journal,
         ], 200);
     }
+
+
+    public function editJournal(Request $request, $id){
+
+        $user = User::find($id);
+        if(!$user){
+            return response()->json(["message" => "Not found"], 404);
+        }
+
+        if($user->role != "admin"){
+            return response()->json(["message" => "You are not authorized to do this"], 401);
+        }
+        $journal = Journal::find($id);
+
+        if (!$journal) {
+            return response()->json(['message' => 'Journal not found.'], 404);
+        }
+
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'text' => 'nullable|string',
+            'restrictedAge' => 'nullable|integer|min:0',
+        ]);
+
+        $journal->update($validated);
+
+        return response()->json([
+            'message' => 'Journal updated successfully.',
+            'journal' => $journal,
+        ], 200);
+    }
 }
