@@ -76,4 +76,27 @@ class JournalController extends Controller
             'journal' => $journal,
         ], 200);
     }
+
+
+    public function removeJournal($id, $journalId){
+        $user = User::find($id);
+        if(!$user){
+            return response()->json(["message" => "Not found"], 404);
+        }
+
+        if($user->role != "admin"){
+            return response()->json(["message" => "You are not authorized to do this"], 401);
+        }
+
+        $journal = Journal::find($journalId);
+
+        if (!$journal) {
+            return response()->json(['message' => 'Journal not found.'], 404);
+        }
+
+        $journal->delete();
+
+        return response()->json(['message' => 'Journal removed successfully.'], 200);
+        
+    }
 }
